@@ -1,14 +1,10 @@
-# What inside? <br/> <sub> no production url - pusher 'Connection closed' error</sub>
+# What inside? <br/> <sub> </sub>
 
-![minimal-reproduce-example](https://i.imgur.com/AxIPz7y.jpg)
+![timer-image](https://i.imgur.com/U6XNvyl.png)
 
 <br/>
 <br/>
 <br/>
-
-
-https://github.com/nicitaacom/acc2-pusher_active_status/assets/39565703/61ccb3f0-5511-496f-98c6-4bc071dbf379
-
 
 # Clone repository
 
@@ -33,11 +29,3 @@ pnpm i
 ```
 pnpm dev
 ```
-
-<br/>
-<br/>
-<br/>
-
-## Step 2 - setup .env
-
-env already set up for you
