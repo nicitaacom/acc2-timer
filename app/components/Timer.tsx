@@ -4,12 +4,12 @@ import React, { useEffect, useState, useRef, useCallback } from "react"
 import { updateTimerFn } from "@/functions/updateTimerFn"
 import { TimerInput } from "./TimerInput"
 import { useRunTimerOnEnter } from "@/hooks/useRunTimerOnEnter"
+import { StartPauseButtons } from "./StartPauseButtons"
 
 export function Timer() {
   const [minutes, setMinutes] = useState(3)
   const [seconds, setSeconds] = useState(0)
   const [isTimeUp, setIsTimeUp] = useState(false)
-  const [error, setError] = useState("")
   const [isTimerRunning, setIsTimerRunning] = useState(false)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -34,7 +34,7 @@ export function Timer() {
       setIsTimerRunning(true)
     }
 
-    setError("")
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [minutes, seconds, isTimerRunning, clearTimerInterval])
 
   const resetTimer = useCallback(() => {
@@ -42,7 +42,6 @@ export function Timer() {
     setMinutes(3)
     setSeconds(0)
     setIsTimeUp(false)
-    setError("")
     setIsTimerRunning(false)
   }, [clearTimerInterval])
 
@@ -107,20 +106,8 @@ export function Timer() {
         />
       </div>
       <div className="flex justify-center space-x-4 mt-4">
-        <button
-          onClick={startPause}
-          tabIndex={-1}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
-          {isTimerRunning ? "Пауза" : "Старт"}
-        </button>
-        <button
-          onClick={resetTimer}
-          tabIndex={-1}
-          className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
-          Сброс
-        </button>
+        <StartPauseButtons startPause={startPause} resetTimer={resetTimer} isTimerRunning={isTimerRunning} />
       </div>
-      {error && <span className="text-sm text-danger">{error}</span>}
       {isTimeUp && <p className="mt-4 text-center text-red-500">Время вышло</p>}
     </div>
   )
