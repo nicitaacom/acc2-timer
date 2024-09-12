@@ -15,7 +15,7 @@
 ## or Step 1.1 - clone repository (variant 2)
 
 ```
-git clone https://github.com/nicitaacom/acc2-pusher_active_status
+git clone https://github.com/nicitaacom/acc2-timer
 ```
 
 ## Step 1.2 - install deps
