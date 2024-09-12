@@ -19,9 +19,7 @@ export function Timer() {
     if (isTimerRunning && (minutes > 0 || seconds > 0)) {
       setIsTimerRunning(true) // Timer is running
       interval = setInterval(() => updateTimerFn(minutes, seconds, setMinutes, setSeconds, setIsTimerRunning), 1000)
-    } else if (isTimeUp) {
-      resetTimer()
-    }
+    } else if (isTimeUp) resetTimer()
 
     return () => {
       clearInterval(interval)
