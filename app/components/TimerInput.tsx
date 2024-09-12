@@ -1,3 +1,4 @@
+import { useCallback } from "react"
 import { twMerge } from "tailwind-merge"
 
 type TimerInputProps = {
@@ -36,17 +37,14 @@ export function TimerInput({ value, onChange, max, placeholder, className, isTim
     if (!/^[0-9]$/.test(key)) e.preventDefault()
   }
 
-  const isTimerRunningCSS = isTimerRunning
-    ? "cursor-default pointer-events-none bg-black text-white border-0 outline-none"
-    : ""
-
   return (
     <input
-      className={twMerge("border rounded-lg p-2 w-16 text-center", isTimerRunningCSS)}
+      className={twMerge("border rounded-lg p-2 w-16 text-center", className)}
       type="text"
       value={value === 0 ? "00" : value} // Display empty when value is 0
       onChange={handleInputChange}
       onKeyDown={handleKeyDown}
+      disabled={isTimerRunning} // to don't allow user change values using when timer is running
       placeholder={placeholder}
       tabIndex={isTimerRunning ? -1 : 1}
     />

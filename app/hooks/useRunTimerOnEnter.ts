@@ -1,6 +1,10 @@
 import { useEffect } from "react"
 
-export const useRunTimerOnEnter = (startPause: () => void, isTimerRunning: boolean) => {
+export const useRunTimerOnEnter = (
+  startPause: () => void,
+  setIsTimerRunning: (value: boolean) => void,
+  isTimerRunning: boolean,
+) => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Enter" && !isTimerRunning) {
@@ -15,5 +19,5 @@ export const useRunTimerOnEnter = (startPause: () => void, isTimerRunning: boole
       window.removeEventListener("keydown", handleKeyDown)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isTimerRunning])
+  }, [isTimerRunning, startPause,setIsTimerRunning])
 }

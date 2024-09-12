@@ -21,6 +21,8 @@ export function updateTimerFn(
     return // to don't execute fruther code
   }
 
-  setSeconds(newSeconds)
-  setMinutes(newMinutes)
+  if (newSeconds !== seconds || newMinutes !== minutes) {
+    setSeconds(newSeconds)
+    setMinutes(newMinutes)
+  }
 }
