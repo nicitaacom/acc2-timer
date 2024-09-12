@@ -5,10 +5,11 @@ type TimerInputProps = {
   onChange: (value: number) => void
   max: number
   placeholder: string
+  isTimerRunning: boolean
   className?: string
 }
 
-export function TimerInput({ value, onChange, max, placeholder, className }: TimerInputProps) {
+export function TimerInput({ value, onChange, max, placeholder, className, isTimerRunning }: TimerInputProps) {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value
 
@@ -35,14 +36,19 @@ export function TimerInput({ value, onChange, max, placeholder, className }: Tim
     if (!/^[0-9]$/.test(key)) e.preventDefault()
   }
 
+  const isTimerRunningCSS = isTimerRunning
+    ? "cursor-default pointer-events-none bg-black text-white border-0 outline-none"
+    : ""
+
   return (
     <input
-      className={twMerge("border rounded-lg p-2 w-16 text-center", className)}
+      className={twMerge("border rounded-lg p-2 w-16 text-center", isTimerRunningCSS)}
       type="text"
       value={value === 0 ? "00" : value} // Display empty when value is 0
       onChange={handleInputChange}
       onKeyDown={handleKeyDown}
       placeholder={placeholder}
+      tabIndex={isTimerRunning ? -1 : 1}
     />
   )
 }

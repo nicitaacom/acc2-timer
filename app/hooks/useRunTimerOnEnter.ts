@@ -14,5 +14,6 @@ export const useRunTimerOnEnter = (startPause: () => void, isTimerRunning: boole
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
     }
-  }, [startPause, isTimerRunning])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isTimerRunning])
 }

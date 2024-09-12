@@ -20,7 +20,7 @@ export function Timer() {
       setIsTimerRunning(true) // Timer is running
       interval = setInterval(() => updateTimerFn(minutes, seconds, setMinutes, setSeconds, setIsTimerRunning), 1000)
     } else if (isTimeUp) {
-      resetTimer() // Reset timer when time is up
+      resetTimer()
     }
 
     return () => {
@@ -28,7 +28,7 @@ export function Timer() {
       setIsTimerRunning(false) // Ensure timer is not running if interval is cleared
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [minutes, seconds, isTimeUp])
+  }, [isTimerRunning, minutes, seconds])
 
   const resetTimer = () => {
     setMinutes(3)
@@ -43,11 +43,11 @@ export function Timer() {
       resetTimer()
       return
     }
+    setIsTimerRunning(prev => !prev)
     setError("")
   }
 
   useRunTimerOnEnter(startPause, isTimerRunning)
-  const isTimerRunningCSS = isTimerRunning ? "cursor-default pointer-events-none bg-black text-white border-0" : ""
 
   return (
     <div className="border p-4 rounded-lg shadow-lg max-w-sm mx-auto">
@@ -58,7 +58,7 @@ export function Timer() {
           onChange={value => setMinutes(Math.min(value, 3))}
           max={3}
           placeholder="ММ"
-          className={isTimerRunningCSS}
+          isTimerRunning={isTimerRunning}
         />
         <span className="mx-2 text-xl">:</span>
         <TimerInput
@@ -73,16 +73,20 @@ export function Timer() {
           }}
           max={59}
           placeholder="СС"
-          className={isTimerRunningCSS}
+          isTimerRunning={isTimerRunning}
         />
       </div>
       <div className="flex justify-center space-x-4 mt-4">
         <button
           onClick={startPause}
+          tabIndex={-1}
           className={`bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition`}>
           {isTimerRunning ? "Пауза" : isTimeUp ? "Старт" : "Старт"}
         </button>
-        <button onClick={resetTimer} className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
+        <button
+          onClick={resetTimer}
+          tabIndex={-1}
+          className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
           Сброс
         </button>
       </div>
