@@ -1,4 +1,4 @@
-import { useCallback } from "react"
+import { memo } from "react"
 import { twMerge } from "tailwind-merge"
 
 type TimerInputProps = {
@@ -10,13 +10,14 @@ type TimerInputProps = {
   className?: string
 }
 
-export function TimerInput({ value, onChange, max, placeholder, className, isTimerRunning }: TimerInputProps) {
+// Define TimerInput as a regular function
+function TimerInput({ value, onChange, max, placeholder, className, isTimerRunning }: TimerInputProps) {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value
 
     // Allow clearing input to empty
     if (newValue === "") {
-      onChange(0) // You may want to manage this differently in your state
+      onChange(0)
       return
     }
 
@@ -41,12 +42,15 @@ export function TimerInput({ value, onChange, max, placeholder, className, isTim
     <input
       className={twMerge("border rounded-lg p-2 w-16 text-center", className)}
       type="text"
-      value={value === 0 ? "00" : value} // Display empty when value is 0
+      value={value === 0 ? "00" : value.toString()} // Display empty when value is 0
       onChange={handleInputChange}
       onKeyDown={handleKeyDown}
-      disabled={isTimerRunning} // to don't allow user change values using when timer is running
+      disabled={isTimerRunning} // to prevent changing values when timer is running
       placeholder={placeholder}
       tabIndex={isTimerRunning ? -1 : 1}
     />
   )
 }
+
+// Export the regular function wrapped with React.memo
+export default memo(TimerInput)
